@@ -6,7 +6,6 @@
 
     <persistence-unit name="FilmDB">
         <jta-data-source>java:jboss/datasources/FilmDBDS</jta-data-source>
-        <!-- Other persistence unit settings -->
     </persistence-unit>
 
 

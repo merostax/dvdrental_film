@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,5 +24,6 @@ public class Language {
     @Basic
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
-
+    @OneToMany(mappedBy = "language")
+    private List<Film> films = new ArrayList<>();
 }

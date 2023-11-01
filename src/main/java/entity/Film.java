@@ -1,18 +1,22 @@
 package entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
-public class Film {
+@EqualsAndHashCode(exclude = {"actors", "categories"})
+public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "film_id", nullable = false)
@@ -35,7 +39,8 @@ public class Film {
 
 
     @ManyToOne
-    @JoinColumn(name = "language_id", referencedColumnName = "language_id")
+    @JoinColumn(name = "language_id")
+    @JsonbTransient
     private Language language;
 
     @Basic
@@ -66,5 +71,40 @@ public class Film {
     @Basic
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
+    @PrePersist
+    @PreUpdate
+    public void onUpdate() {
+        this.lastUpdate = new Timestamp(System.currentTimeMillis());
+    }
 
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    @JsonbTransient
+    private Set<Actor> actors = new HashSet<>();
+
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @JsonbTransient
+    private Set<Category> categories = new HashSet<>();
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+    public void addActor(Actor actor){
+        actors.add(actor);
+    }
 }

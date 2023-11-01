@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "film_actor", schema = "public", catalog = "film-db")
 @IdClass(entity.FilmActorPK.class)
-@EqualsAndHashCode
 public class FilmActor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
