@@ -1,17 +1,20 @@
 package entity;
 
+import dtos.FilmDTO;
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude ="films" )
+@NoArgsConstructor
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,5 +30,13 @@ public class Actor {
     @Basic
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdate = new Timestamp(System.currentTimeMillis());
+    }
+    @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER)
+    @JsonbTransient
+    private Set<Film> films =new HashSet<>();
 
 }

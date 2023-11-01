@@ -37,21 +37,19 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.5.0.Final</version> <!-- Use the appropriate version -->
+            <version>5.5.0.Final</version>
         </dependency>
 
-        <!-- Hibernate EntityManager (Optional) -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.5.0.Final</version> <!-- Use the appropriate version -->
+            <version>5.5.0.Final</version>
         </dependency>
 
-        <!-- JDBC Driver (e.g., PostgreSQL) -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.6.0</version> <!-- Use the appropriate version -->
+            <version>42.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
