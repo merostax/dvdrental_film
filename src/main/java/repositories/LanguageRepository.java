@@ -20,6 +20,14 @@ public class LanguageRepository {
         return em.find(Language.class, id);
     }
     @Transactional
+    public Language getLanguageByName(String name) {
+        EntityManager em = entityManagerProvider.getEntityManager();
+        return em.createQuery("SELECT l FROM Language l WHERE LOWER(l.name) = :name", Language.class)
+                .setParameter("name", name.toLowerCase())
+                .getSingleResult();
+    }
+
+    @Transactional
     public List<Language> getAllLanguages() {
         EntityManager em = entityManagerProvider.getEntityManager();
         return em.createQuery("SELECT l FROM Language l", Language.class)

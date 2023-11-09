@@ -1,6 +1,7 @@
 package repositories;
 
 import dtos.FilmDTO;
+import entity.Category;
 import entity.Language;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -33,6 +34,12 @@ public class FilmRepository {
         EntityManager em = entityManagerProvider.getEntityManager();
         return em.find(Film.class, id);
     }
+    @Transactional
+    public long getFilmCount() {
+        EntityManager em = entityManagerProvider.getEntityManager();
+        Query query = em.createQuery("SELECT COUNT(f) FROM Film f");
+        return (long) query.getSingleResult();
+    }
 
     @Transactional
     public Film updateFilm(Film film) {
@@ -40,12 +47,11 @@ public class FilmRepository {
         Film updatedFilm = em.merge(film);
         return updatedFilm;
     }
-
     @Transactional
     public Film createFilm(FilmDTO filmDTO) {
         EntityManager em = entityManagerProvider.getEntityManager();
         Film film = DTOEntityUtil.createFilmFromDTO(filmDTO);
-        Language language = languageRepository.getLanguageById(Integer.parseInt(filmDTO.getLanguage()));
+        Language language = languageRepository.getLanguageByName(filmDTO.getLanguage());
         if (language != null) {
             film.setLanguage(language);
         } else return null;

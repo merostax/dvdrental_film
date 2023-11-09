@@ -13,7 +13,9 @@ import services.FilmService;
 import services.LanguageService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("/")
 public class RootResource {
@@ -24,29 +26,37 @@ public class RootResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listEndpoints() {
-        List<String> endpoints = new ArrayList<>();
+        List<Map<String, String>> endpoints = new ArrayList<>();
 
         if (ActorService.class.isAnnotationPresent(Path.class)) {
             Path pathAnnotation = ActorService.class.getAnnotation(Path.class);
-            endpoints.add(uriInfo.getBaseUri() + pathAnnotation.value());
+            endpoints.add(createEndpointMap(uriInfo.getBaseUri() + pathAnnotation.value()));
         }
 
         if (CategoryService.class.isAnnotationPresent(Path.class)) {
             Path pathAnnotation = CategoryService.class.getAnnotation(Path.class);
-            endpoints.add(uriInfo.getBaseUri() + pathAnnotation.value());
+            endpoints.add(createEndpointMap(uriInfo.getBaseUri() + pathAnnotation.value()));
         }
 
         if (FilmService.class.isAnnotationPresent(Path.class)) {
             Path pathAnnotation = FilmService.class.getAnnotation(Path.class);
-            endpoints.add(uriInfo.getBaseUri() + pathAnnotation.value());
+            endpoints.add(createEndpointMap(uriInfo.getBaseUri() + pathAnnotation.value()));
         }
+
         if (LanguageService.class.isAnnotationPresent(Path.class)) {
             Path pathAnnotation = LanguageService.class.getAnnotation(Path.class);
-            endpoints.add(uriInfo.getBaseUri() + pathAnnotation.value());
+            endpoints.add(createEndpointMap(uriInfo.getBaseUri() + pathAnnotation.value()));
         }
+
         Jsonb jsonb = JsonbBuilder.create();
         String jsonEndpoints = jsonb.toJson(endpoints);
 
         return Response.ok(jsonEndpoints).build();
+    }
+
+    private Map<String, String> createEndpointMap(String href) {
+        Map<String, String> endpointMap = new HashMap<>();
+        endpointMap.put("href", href);
+        return endpointMap;
     }
 }

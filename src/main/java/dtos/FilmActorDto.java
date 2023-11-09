@@ -7,19 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonbPropertyOrder({"id", "firstName", "lastName", "filmsHref"})
-public class ActorDTO {
-    private int id;
-    private String firstName;
-    private String lastName;
-    @JsonbProperty("films")
-    private Map<String,String> filmsHref;
+@JsonbPropertyOrder({"title", "filmsHref"})
+public class FilmActorDto {
+    private String title;
+    private String href;
 }
-

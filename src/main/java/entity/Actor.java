@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,6 +39,6 @@ public class Actor {
     }
     @ManyToMany(mappedBy = "actors", fetch = FetchType.EAGER)
     @JsonbTransient
-    private Set<Film> films =new HashSet<>();
+    private List<Film> films =new ArrayList<>();
 
 }

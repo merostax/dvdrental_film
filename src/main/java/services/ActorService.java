@@ -1,14 +1,16 @@
 package services;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import dtos.FilmActorDto;
+import dtos.FilmDTO;
 import entity.Film;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import entity.Actor;
@@ -27,7 +29,7 @@ public class ActorService {
     @Context
     UriInfo uriInfo ;
     @GET
-    public Response getActors(@QueryParam("page") @DefaultValue("1") int page) {
+    public Response getActors(@Valid @QueryParam("page") @DefaultValue("1") @Min(1) int page) {
         int pageSize = 10;
         List<Actor> actors = actorRepository.getActors(page, pageSize);
 
@@ -39,7 +41,6 @@ public class ActorService {
     private ActorDTO createActorDTOWithFilmHrefs(Actor actor) {
         return DTOEntityUtil.createActorDTOWithFilmHrefs(actor);
     }
-
     @POST
     public Response createActor(ActorDTO actorDTO) {
         Actor createdActor = actorRepository.createActor(actorDTO);
@@ -68,14 +69,17 @@ public class ActorService {
                     .entity("Actor not found")
                     .build();
         }
-        String filmsHref = getFilmsHref(actorOptional.get());
+        Map filmsHref = getFilmsHref(actorOptional.get());
         Actor actor = actorOptional.get();
         ActorDTO actorDTO = new ActorDTO(actor.getActorId(), actor.getFirstName(), actor.getLastName(), filmsHref);
         return Response.ok(actorDTO).build();
     }
-    private String getFilmsHref(Actor actor) {
-        return Hrefs.FILM.getHref()+ "actors/" + actor.getActorId() + "/films";
+    private Map<String, String> getFilmsHref(Actor actor) {
+        Map<String, String> filmHref = new HashMap<>();
+        filmHref.put("href", Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films");
+        return filmHref;
     }
+
 
     @DELETE
     @Path("/{id}")
@@ -111,19 +115,24 @@ public class ActorService {
                     .build();
         }
 
-        Actor updatedActor = actorRepository.updateActor(actorDTO,actorRepository.getActorById(id));
-        return Response.status(Response.Status.NOT_FOUND)
-                .entity(updatedActor)
+        actorRepository.updateActor(actorDTO,actorRepository.getActorById(id));
+        return Response.status(Response.Status.NO_CONTENT)
+                .entity("Actor was updated.")
                 .build();
     }
     @GET
     @Path("/{id}/films")
-    public Set<Film> getFilmsForActor(@PathParam("id") int id) {
+    public List<FilmActorDto> getFilmsForActor(@PathParam("id") int id) {
         Optional<Actor> actorOptional = Optional.ofNullable(actorRepository.getActorById(id));
         if (actorOptional.isEmpty()) {
             throw new NotFoundException("Actor not found");
         }
+        List<Film> filmList = actorOptional.get().getFilms();
 
-        return actorOptional.get().getFilms();
+        List<FilmActorDto> filmDTOList = filmList.stream()
+                .map(DTOEntityUtil::createFilmActorDto)
+                .collect(Collectors.toList());
+
+        return filmDTOList;
     }
 }

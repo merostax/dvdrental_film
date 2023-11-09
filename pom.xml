@@ -84,6 +84,10 @@
                 <artifactId>wildfly-jar-maven-plugin</artifactId>
                 <version>${wildfly-jar-maven-plugin.version}</version>
                 <configuration>
+                    <jvmArguments>
+                        <jvmArgument>-Djboss.http.port=8081</jvmArgument>
+                        <jvmArgument>-Djboss.management.http.port=9090</jvmArgument>
+                    </jvmArguments>
                     <feature-packs>
                         <feature-pack>
                             <location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</location>
@@ -113,6 +117,7 @@
                             <goal>package</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
             <plugin>
@@ -122,5 +127,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -2,12 +2,15 @@ package services;
 
 import clienTargetRepository.StoreServiceClientProvider;
 import dtos.ActorDTO;
+import dtos.ActorFilmDto;
 import dtos.FilmDTO;
 import entity.Actor;
 import entity.Category;
 import entity.Film;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
@@ -16,8 +19,10 @@ import repositories.ActorRepository;
 import repositories.CategoryRepository;
 import repositories.FilmRepository;
 import util.DTOEntityUtil;
+import util.Hrefs;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,13 +43,12 @@ public class FilmService {
     private CategoryRepository categoryRepository;
 
     @GET
-    public Response getFilms(@QueryParam("page") @DefaultValue("1") int page) {
+    public Response getFilms(@Valid @QueryParam("page") @DefaultValue("1") @Min(1) int page) {
         int pageSize = 20;
         List<Film> films = filmRepository.getFilms(page, pageSize);
         List<FilmDTO> filmDTOs = films.stream()
                 .map(e->DTOEntityUtil.createFilmDTO(e))
                 .collect(Collectors.toList());
-
         return Response.ok(filmDTOs).build();
     }
 
@@ -52,9 +56,9 @@ public class FilmService {
     public Response createFilm(FilmDTO filmDTO) {
         Optional<Film> createdFilmOptional = Optional.ofNullable(filmRepository.createFilm(filmDTO));
         if (createdFilmOptional.isPresent()) {
-            Film createdFilm = createdFilmOptional.get();
             return Response.status(Response.Status.CREATED)
-                    .entity(createdFilm)
+                    .entity("Film was created")
+                    .header("Location", Hrefs.FILM.getHref()+"films/" + createdFilmOptional.get().getFilmId())
                     .build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -93,14 +97,14 @@ public class FilmService {
         }
         if (film.getActors().contains(actor)) {
             return Response.status(Response.Status.CONFLICT)
-                    .entity("Actor is already associated with the film")
+                    .entity(actor.getFirstName()+" is already associated with the film")
                     .build();
         }
         film.addActor(actor);
         filmRepository.updateFilm(film);
 
         return Response.status(Response.Status.CREATED)
-                .header("Location", "/films/" + filmId + "/actors/" + actorId)
+                .header("Location", Hrefs.FILM.getHref()+"films/" + filmId + "/actors")
                 .build();
     }
     @DELETE
@@ -171,8 +175,11 @@ public class FilmService {
                     .entity("Film not found")
                     .build();
         }
-        Set<Actor> actors = film.getActors();
-        return Response.ok(actors).build();
+        List<Actor> actors = film.getActors();
+        List<ActorFilmDto> actorsDto = actors.stream()
+                .map(e->DTOEntityUtil.createActorFilmDto(e))
+                .collect(Collectors.toList());
+        return Response.ok(actorsDto).build();
     }
     @GET
     @Path("/{id}/categories")
@@ -186,9 +193,16 @@ public class FilmService {
         }
 
         Set<Category> categories = film.getCategories();
+        List<String> categoryNames = categories.stream().map(Category::getName).toList();
         return Response.status(Response.Status.OK)
-                .entity(categories)
+                .entity(categoryNames)
                 .build();
+    }
+    @GET
+    @Path("/count")
+    public Response getNumberOfFilms() {
+        long filmCount = filmRepository.getFilmCount();
+        return Response.ok(filmCount).build();
     }
 
     @PUT
@@ -205,13 +219,21 @@ public class FilmService {
                     .entity("Film or category not found")
                     .build();
         }
+
+        if (film.getCategories().contains(category)) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(category.getName() + " is already associated with the film")
+                    .build();
+        }
         film.addCategory(category);
         filmRepository.updateFilm(film);
-        String location = "/films/" + filmId + "/categories/" +category.getName();
+
+        String location = Hrefs.FILM.getHref() + "films/" + filmId + "/categories";
         return Response.status(Response.Status.CREATED)
                 .header("Location", location)
                 .entity("Category added to film.")
                 .build();
     }
+
 
 }

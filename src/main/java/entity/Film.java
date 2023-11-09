@@ -9,7 +9,9 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -87,7 +89,7 @@ public class Film implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
     @JsonbTransient
-    private Set<Actor> actors = new HashSet<>();
+    private List<Actor> actors =new ArrayList<>();
 
 
     @ManyToMany(cascade = {
@@ -106,5 +108,19 @@ public class Film implements Serializable {
     }
     public void addActor(Actor actor){
         actors.add(actor);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Film film = (Film) o;
+
+        return filmId == film.filmId;
+    }
+
+    @Override
+    public int hashCode() {
+        return filmId;
     }
 }

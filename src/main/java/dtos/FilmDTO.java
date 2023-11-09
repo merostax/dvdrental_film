@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -28,6 +29,6 @@ public class FilmDTO {
     private BigDecimal rentalRate;
     private BigDecimal replacementCost;
     private String language;
-    private List<String> actors;
+    private Map<String, String> actors;
     private List<String> categories;
 }
