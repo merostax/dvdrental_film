@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.pdbm</groupId>
-    <artifactId>film</artifactId>
+    <artifactId>starter</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>film</name>
+    <name>Starter</name>
     <description>Einfaches Projekt für den Start mit bootable WildFly</description>
 
     <properties>
@@ -34,45 +34,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.5.0.Final</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.5.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.6.0</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version> <!-- Use the latest version available -->
-            <scope>test</scope> <!-- This is a test dependency -->
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.19.0</version>
         </dependency>
     </dependencies>
 
@@ -84,10 +51,6 @@
                 <artifactId>wildfly-jar-maven-plugin</artifactId>
                 <version>${wildfly-jar-maven-plugin.version}</version>
                 <configuration>
-                    <jvmArguments>
-                        <jvmArgument>-Djboss.http.port=8081</jvmArgument>
-                        <jvmArgument>-Djboss.management.http.port=9090</jvmArgument>
-                    </jvmArguments>
                     <feature-packs>
                         <feature-pack>
                             <location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</location>
@@ -104,7 +67,6 @@
                         <layer>jaxrs</layer>
                         <layer>bean-validation</layer>
                         <layer>management</layer>
-                        <layer>jaxrs-server</layer>
                         <layer>postgresql-datasource</layer>
                     </layers>
                     <excluded-layers>
@@ -117,7 +79,6 @@
                             <goal>package</goal>
                         </goals>
                     </execution>
-
                 </executions>
             </plugin>
             <plugin>
@@ -127,4 +88,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
