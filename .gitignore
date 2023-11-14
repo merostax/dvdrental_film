@@ -1,3 +1,4 @@
+
 /target/classes/clienTargetRepository/StoreServiceClientProvider.class
 /target/classes/dtos/ActorDTO.class
 /target/classes/dtos/FilmDTO.class
@@ -76,3 +77,4 @@
 /target/film/WEB-INF/web.xml
 /target/film.war
 /film.iml
+/.idea/
