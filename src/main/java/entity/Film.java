@@ -2,9 +2,6 @@ package entity;
 
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,9 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode(exclude = {"actors", "categories"})
 public class Film implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -102,7 +96,7 @@ public class Film implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     @JsonbTransient
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
     public void addCategory(Category category) {
         categories.add(category);
     }
@@ -116,6 +110,110 @@ public class Film implements Serializable {
         Film film = (Film) o;
 
         return filmId == film.filmId;
+    }
+
+    public int getFilmId() {
+        return this.filmId;
+    }
+
+    public void setFilmId(final int filmId) {
+        this.filmId = filmId;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public Short getReleaseYear() {
+        return this.releaseYear;
+    }
+
+    public void setReleaseYear(final Short releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public Language getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    public short getRentalDuration() {
+        return this.rentalDuration;
+    }
+
+    public void setRentalDuration(final short rentalDuration) {
+        this.rentalDuration = rentalDuration;
+    }
+
+    public BigDecimal getRentalRate() {
+        return this.rentalRate;
+    }
+
+    public void setRentalRate(final BigDecimal rentalRate) {
+        this.rentalRate = rentalRate;
+    }
+
+    public Short getLength() {
+        return this.length;
+    }
+
+    public void setLength(final Short length) {
+        this.length = length;
+    }
+
+    public BigDecimal getReplacementCost() {
+        return this.replacementCost;
+    }
+
+    public void setReplacementCost(final BigDecimal replacementCost) {
+        this.replacementCost = replacementCost;
+    }
+
+    public String getRating() {
+        return this.rating;
+    }
+
+    public void setRating(final String rating) {
+        this.rating = rating;
+    }
+
+    public Timestamp getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public void setLastUpdate(final Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public List<Actor> getActors() {
+        return this.actors;
+    }
+
+    public void setActors(final List<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(final List<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

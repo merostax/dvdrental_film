@@ -2,18 +2,12 @@ package entity;
 
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
 public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -31,4 +25,35 @@ public class Category {
     @JsonbTransient
     private Set<Film> films =new HashSet<>();
 
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(final int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public Timestamp getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public void setLastUpdate(final Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Set<Film> getFilms() {
+        return this.films;
+    }
+
+    public void setFilms(final Set<Film> films) {
+        this.films = films;
+    }
 }

@@ -7,6 +7,6 @@ export POSTGRESQL_USER=postgres
 export POSTGRESQL_PASSWORD=postgres
 export POSTGRESQL_DATASOURCE=FilmDBDS
 mvn clean package
-#java -jar target/starter-bootable.jar  -Djboss.http.port=8081
+java -jar target/starter-bootable.jar  -Djboss.http.port=8081
 
 

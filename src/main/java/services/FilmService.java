@@ -192,7 +192,7 @@ public class FilmService {
                     .build();
         }
 
-        Set<Category> categories = film.getCategories();
+        List<Category> categories = film.getCategories();
         List<String> categoryNames = categories.stream().map(Category::getName).toList();
         return Response.status(Response.Status.OK)
                 .entity(categoryNames)

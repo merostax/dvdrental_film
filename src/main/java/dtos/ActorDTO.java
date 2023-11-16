@@ -1,13 +1,7 @@
 package dtos;
-
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -19,7 +13,7 @@ public class ActorDTO {
     @JsonbProperty("films")
     private Map<String,String> filmsHref;
     public ActorDTO() {
-    }
+    }  
 
     public ActorDTO( int id,  String firstName,  String lastName,  Map<String, String> filmsHref) {
         this.id = id;

@@ -1,22 +1,13 @@
 package entity;
 
-import dtos.FilmDTO;
-import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode(exclude ="films" )
-@NoArgsConstructor
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -41,4 +32,43 @@ public class Actor {
     @JsonbTransient
     private List<Film> films =new ArrayList<>();
 
+    public int getActorId() {
+        return this.actorId;
+    }
+
+    public void setActorId(final int actorId) {
+        this.actorId = actorId;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Timestamp getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public void setLastUpdate(final Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public List<Film> getFilms() {
+        return this.films;
+    }
+
+    public void setFilms(final List<Film> films) {
+        this.films = films;
+    }
 }

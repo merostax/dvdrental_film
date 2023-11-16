@@ -1,14 +1,7 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-
 
 public class FilmCategoryPK implements Serializable {
     private int filmId;
@@ -29,5 +22,21 @@ public class FilmCategoryPK implements Serializable {
         int result = filmId;
         result = 31 * result + categoryId;
         return result;
+    }
+
+    public int getFilmId() {
+        return this.filmId;
+    }
+
+    public void setFilmId(final int filmId) {
+        this.filmId = filmId;
+    }
+
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(final int categoryId) {
+        this.categoryId = categoryId;
     }
 }

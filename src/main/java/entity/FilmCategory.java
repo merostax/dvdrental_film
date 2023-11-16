@@ -1,18 +1,12 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "film_category", schema = "public", catalog = "film-db")
 @IdClass(entity.FilmCategoryPK.class)
-@Getter
-@Setter
-@EqualsAndHashCode
 public class FilmCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -28,4 +22,27 @@ public class FilmCategory {
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
 
+    public int getFilmId() {
+        return this.filmId;
+    }
+
+    public void setFilmId(final int filmId) {
+        this.filmId = filmId;
+    }
+
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(final int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Timestamp getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public void setLastUpdate(final Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 }

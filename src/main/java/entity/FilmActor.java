@@ -1,8 +1,6 @@
 package entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-
 import java.sql.Timestamp;
 
 @Entity
@@ -23,4 +21,27 @@ public class FilmActor {
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
 
+    public int getActorId() {
+        return this.actorId;
+    }
+
+    public void setActorId(final int actorId) {
+        this.actorId = actorId;
+    }
+
+    public int getFilmId() {
+        return this.filmId;
+    }
+
+    public void setFilmId(final int filmId) {
+        this.filmId = filmId;
+    }
+
+    public Timestamp getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+    public void setLastUpdate(final Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 }

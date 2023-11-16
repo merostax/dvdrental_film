@@ -1,10 +1,6 @@
 package dtos;
 
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @JsonbPropertyOrder({"firstname_Lastname", "href"})
 public class ActorFilmDto {
