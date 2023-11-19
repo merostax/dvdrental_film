@@ -6,4 +6,4 @@ podman rm --all
 podman pod stop --all
 podman pod rm --all
 
-podman rmi --all
+podman rmi -f --all
