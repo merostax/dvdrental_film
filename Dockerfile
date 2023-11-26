@@ -1,12 +1,11 @@
-# Use a base image
 FROM docker.io/library/eclipse-temurin:21.0.1_12-jdk-ubi9-minimal
 
-# Set the working directory
+ENV POSTGRESQL_VERSION 42.6.0
+ENV POSTGRESQL_DRIVER_URL https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_VERSION}.jar
+ENV POSTGRESQL_DRIVER_PATH /usr/local/lib/postgresql-${POSTGRESQL_VERSION}.jar
 
-# Copy the JAR file from your local machine to the container
-COPY ./target/*.jar starter.jar
+RUN curl -L -o ${POSTGRESQL_DRIVER_PATH} ${POSTGRESQL_DRIVER_URL}
 
-# Expose the port
+COPY target/*.jar starter.jar
 
-# Define the entrypoint with system properties
-ENTRYPOINT ["java", "-Djboss.http.port=8081", "-Djboss.management.http.port=9990", "-jar", "starter.jar"]
+ENTRYPOINT ["java", "-jar","starter.jar"]
