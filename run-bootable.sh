@@ -1,36 +1,22 @@
-#!/bin/bash
+#!/usr/bin/bash
 source .env
 
-function build_and_run_project {
-    local database=$1
-    local datasource=$2
-    local dbport=$3
-    local service_port=$4
-    local project_name=$5
-    local container_name=$6
-    local wildflyport=$7
+podman stop --all
+podman rm --all
 
-    cd "$BASE_DIR/.." || exit
-    cd "$project_name" || exit
+podman pod stop --all
+podman pod rm --all
 
-    podman build -t $container_name --build-arg JBOSS_HTTP_PORT=$wildflyport --build-arg JBOSS_MANAGEMENT_HTTP_PORT=$service_port ./docker/backend
+podman rmi -f --all
 
-    podman run -t --name $container_name  --pod dvdrentalpod --net=host \
-        -e POSTGRESQL_DATABASE="$database" \
-        -e POSTGRESQL_USER=postgres \
-        -e POSTGRESQL_PASSWORD=postgres \
-        -e POSTGRESQL_DATASOURCE="$datasource" \
-        -e POSTGRESQL_SERVICE_PORT="$dbport" \
-        $container_name
+DOCKERFILE_DB_PATH="./docker/db/Dockerfile"
+DOCKERFILE_PATH="./docker/app/Dockerfile"
 
-}
-
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Remove and run PostgreSQL containers
-
-# Build and run projects
-build_and_run_project "$FILM_DB_NAME" "$FILM_DATASOURCE" "$FILM_DB_PORT"  "$FILM_WILDFLY_MANAGEMENT_PORT" "dvdrental-film" "$FILM_CONTAINER_NAME" "$FILM_PORT_WILDFLY"
-#build_and_run_project "$STORE_DB_NAME" "$STORE_DATASOURCE" "$STORE_DB_PORT"  "$STORE_WILDFLY_MANAGEMENT_PORT" "dvdrental-store" "$STORE_CONTAINER_NAME" "$STORE_PORT_WILDFLY"
-#build_and_run_project "$CUSTOMER_DB_NAME" "$CUSTOMER_DATASOURCE" "$CUSTOMER_DB_PORT"  "$CUSTOMER_WILDFLY_MANAGEMENT_PORT""dvdrental-customer" "$CUSTOMER_CONTAINER_NAME" "$CUSTOMER_PORT_WILDFLY"
+ podman pod create  --name $PODNAME_FILM_DB  -p 54321:54321 -p 8081:8080
 
 
+podman build -t $FILM_CONTAINER_NAME_POSTGRES --build-arg SQL_FILE=$FILM_DB_SQL -f $DOCKERFILE_DB_PATH .
+ podman run  -d  --network podman --pod $PODNAME_FILM_DB   $FILM_CONTAINER_NAME_POSTGRES
+
+podman build -t $FILM_CONTAINER_NAME -f $DOCKERFILE_PATH .
+podman run  -t  --network podman --pod $PODNAME_FILM_DB --name $FILM_CONTAINER_NAME  -e POSTGRESQL_USER=postgres  -e POSTGRESQL_PASSWORD=postgres $FILM_CONTAINER_NAME
