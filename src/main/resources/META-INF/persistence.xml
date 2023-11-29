@@ -4,12 +4,13 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
     http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-    <persistence-unit name="FilmDB">
-        <jta-data-source>java:jboss/datasources/FilmDBDS</jta-data-source>
+    <persistence-unit name="FilmDB" transaction-type="JTA">
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:54321/dvdrentalfilm"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="postgres"/>
         </properties>
     </persistence-unit>
-
-
 </persistence>
