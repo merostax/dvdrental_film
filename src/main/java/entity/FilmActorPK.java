@@ -8,7 +8,7 @@ public class FilmActorPK implements Serializable {
     private int filmId;
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals( Object o) {
         if (this == o) return true;
         if (null == o || this.getClass() != o.getClass()) return false;
         final FilmActorPK that = (FilmActorPK) o;

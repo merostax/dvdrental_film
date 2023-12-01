@@ -36,7 +36,7 @@ public class Actor {
         return this.actorId;
     }
 
-    public void setActorId(final int actorId) {
+    public void setActorId( int actorId) {
         this.actorId = actorId;
     }
 
@@ -44,7 +44,7 @@ public class Actor {
         return this.firstName;
     }
 
-    public void setFirstName(final String firstName) {
+    public void setFirstName( String firstName) {
         this.firstName = firstName;
     }
 
@@ -52,7 +52,7 @@ public class Actor {
         return this.lastName;
     }
 
-    public void setLastName(final String lastName) {
+    public void setLastName( String lastName) {
         this.lastName = lastName;
     }
 
@@ -60,7 +60,7 @@ public class Actor {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(final Timestamp lastUpdate) {
+    public void setLastUpdate( Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
