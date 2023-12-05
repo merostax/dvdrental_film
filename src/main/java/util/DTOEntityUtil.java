@@ -20,7 +20,7 @@ public class DTOEntityUtil {
         actorDTO.setFirstName(actor.getFirstName());
         actorDTO.setLastName(actor.getLastName());
         Map<String, String> filmHref = new HashMap<>();
-        filmHref.put("href", Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films");
+        filmHref.put("href", Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films":"");
         actorDTO.setFilmsHref(filmHref);
         return actorDTO;
     }
@@ -50,7 +50,7 @@ public class DTOEntityUtil {
         filmDTO.setReplacementCost(film.getReplacementCost());
         filmDTO.setLanguage(film.getLanguage().getName());
         Map<String, String> actors = new HashMap<>();
-        actors.put("href",Hrefs.FILM.getHref()+"films/" + film.getFilmId()+"/actors/");
+        actors.put("href",Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref()+"films/" + film.getFilmId()+"/actors/":"");
         filmDTO.setActors(actors);
         filmDTO.setCategories(film.getCategories().stream()
                 .map(Category::getName)
@@ -60,13 +60,13 @@ public class DTOEntityUtil {
     public static FilmActorDto createFilmActorDto(Film film) {
         FilmActorDto filmDTO = new FilmActorDto();
         filmDTO.setTitle(film.getTitle());
-        filmDTO.setHref(Hrefs.FILM.getHref()+"films/"+film.getFilmId());
+        filmDTO.setHref(Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref()+"films/"+film.getFilmId():"");
         return filmDTO;
     }
     public static ActorFilmDto  createActorFilmDto(Actor actor) {
         ActorFilmDto actorFilmDto = new ActorFilmDto();
         actorFilmDto.setFirstname_Lastname(actor.getFirstName()+" "+actor.getLastName());
-        actorFilmDto.setHref(Hrefs.FILM.getHref()+"actors/"+actor.getActorId());
+        actorFilmDto.setHref(Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref()+"actors/"+actor.getActorId():"");
         return actorFilmDto;
     }
 

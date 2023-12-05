@@ -76,7 +76,7 @@ public class ActorService {
     }
     private Map<String, String> getFilmsHref(Actor actor) {
         Map<String, String> filmHref = new HashMap<>();
-        filmHref.put("href", Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films");
+        filmHref.put("href", Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films":"");
         return filmHref;
     }
 

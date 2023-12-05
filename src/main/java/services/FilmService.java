@@ -58,7 +58,7 @@ public class FilmService {
         if (createdFilmOptional.isPresent()) {
             return Response.status(Response.Status.CREATED)
                     .entity("Film was created")
-                    .header("Location", Hrefs.FILM.getHref()+"films/" + createdFilmOptional.get().getFilmId())
+                    .header("Location", Hrefs.FILM.getHref() != null ? Hrefs.FILM.getHref() + "films/" + createdFilmOptional.get().getFilmId() : "")
                     .build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -104,7 +104,7 @@ public class FilmService {
         filmRepository.updateFilm(film);
 
         return Response.status(Response.Status.CREATED)
-                .header("Location", Hrefs.FILM.getHref()+"films/" + filmId + "/actors")
+                .header("Location", Hrefs.FILM.getHref()!= null ? Hrefs.FILM.getHref()+ "films/" + filmId + "/actors" :"")
                 .build();
     }
     @DELETE
@@ -228,7 +228,7 @@ public class FilmService {
         film.addCategory(category);
         filmRepository.updateFilm(film);
 
-        String location = Hrefs.FILM.getHref() + "films/" + filmId + "/categories";
+        String location = Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref()+ "films/" + filmId + "/categories":"";
         return Response.status(Response.Status.CREATED)
                 .header("Location", location)
                 .entity("Category added to film.")
