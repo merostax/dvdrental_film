@@ -1,9 +1,5 @@
 #!/bin/bash
 
-podman stop --all
-podman rm -f --all
+source .env
+podman pod rm --force $PODNAME
 
-podman pod stop --all
-podman pod rm -f --all
-
-podman rmi -f --all

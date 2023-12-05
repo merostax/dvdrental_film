@@ -1,9 +1,9 @@
 package util;
 
 public enum Hrefs {
-    CUSTOMER("http://localhost:8083/"),
-    STORE("http://localhost:8082/"),
-    FILM("http://localhost:8081/");
+    CUSTOMER(getPropertyWithWarning("customer.service.uri", "Customer")),
+    STORE(getPropertyWithWarning("store.service.uri", "Store")),
+    FILM(getPropertyWithWarning("film.service.uri", "Film"));
 
     private final String href;
 
@@ -13,5 +13,16 @@ public enum Hrefs {
 
     public String getHref() {
         return href;
+    }
+
+    private static String getPropertyWithWarning(String propertyName, String serviceName) {
+        String propertyValue = System.getProperty(propertyName);
+
+        if (propertyValue == null || propertyValue.isEmpty()) {
+            System.out.println("Warning: " + serviceName + " service URI not set. "
+                    + "Set it using system property -D" + propertyName + "=http://your-service-uri");
+        }
+
+        return propertyValue;
     }
 }
