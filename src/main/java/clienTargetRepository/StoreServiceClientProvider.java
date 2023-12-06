@@ -7,34 +7,14 @@ import jakarta.ws.rs.client.WebTarget;
 
 @ApplicationScoped
 public class StoreServiceClientProvider {
-
-    private static final String STORE_SERVICE_URI_PROPERTY = "store.service.uri";
-
     private Client client;
     private WebTarget storeServiceTarget;
-
     public StoreServiceClientProvider() {
         client = ClientBuilder.newClient();
-        this.storeServiceTarget = initializeStoreServiceTarget();
-        System.out.println("Store service URI: " + getStoreServiceUri());
-    }
-
-    private WebTarget initializeStoreServiceTarget() {
-        String storeServiceUri = getStoreServiceUri();
-
-        if (storeServiceUri == null || storeServiceUri.isEmpty()) {
-            System.out.println("Warning: Store service URI not set. "
-                    + "Set it using system property -Dstore.service.uri=http://your-store-service-uri");
-        }
-
-        return client.target(storeServiceUri);
+        this.storeServiceTarget = client.target("http://localhost:8082/");
     }
 
     public WebTarget getStoreServiceTarget() {
         return storeServiceTarget;
-    }
-
-    private String getStoreServiceUri() {
-        return System.getProperty(STORE_SERVICE_URI_PROPERTY);
     }
 }
