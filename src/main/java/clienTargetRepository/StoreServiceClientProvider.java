@@ -1,24 +1,26 @@
 package clienTargetRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 
 @ApplicationScoped
 public class StoreServiceClientProvider {
+
+    private static final String STORE_SERVICE_URI_PROPERTY = "store.service.uri";
+
     private Client client;
     private WebTarget storeServiceTarget;
 
-    @Inject
     public StoreServiceClientProvider() {
         client = ClientBuilder.newClient();
         this.storeServiceTarget = initializeStoreServiceTarget();
+        System.out.println("Store service URI: " + getStoreServiceUri());
     }
 
     private WebTarget initializeStoreServiceTarget() {
-        String storeServiceUri = System.getProperty("store.service.uri");
+        String storeServiceUri = getStoreServiceUri();
 
         if (storeServiceUri == null || storeServiceUri.isEmpty()) {
             System.out.println("Warning: Store service URI not set. "
@@ -30,5 +32,9 @@ public class StoreServiceClientProvider {
 
     public WebTarget getStoreServiceTarget() {
         return storeServiceTarget;
+    }
+
+    private String getStoreServiceUri() {
+        return System.getProperty(STORE_SERVICE_URI_PROPERTY);
     }
 }

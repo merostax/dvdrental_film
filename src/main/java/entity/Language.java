@@ -25,7 +25,7 @@ public class Language {
         return this.languageId;
     }
 
-    public void setLanguageId(final int languageId) {
+    public void setLanguageId( int languageId) {
         this.languageId = languageId;
     }
 
@@ -33,7 +33,7 @@ public class Language {
         return this.name;
     }
 
-    public void setName(final String name) {
+    public void setName( String name) {
         this.name = name;
     }
 
@@ -41,7 +41,7 @@ public class Language {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(final Timestamp lastUpdate) {
+    public void setLastUpdate( Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -49,7 +49,7 @@ public class Language {
         return this.films;
     }
 
-    public void setFilms(final List<Film> films) {
+    public void setFilms( List<Film> films) {
         this.films = films;
     }
 }

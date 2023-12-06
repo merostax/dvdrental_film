@@ -68,7 +68,7 @@ public class Actor {
         return this.films;
     }
 
-    public void setFilms(final List<Film> films) {
+    public void setFilms( List<Film> films) {
         this.films = films;
     }
 }

@@ -25,7 +25,7 @@ public class FilmActor {
         return this.actorId;
     }
 
-    public void setActorId(final int actorId) {
+    public void setActorId( int actorId) {
         this.actorId = actorId;
     }
 
@@ -33,7 +33,7 @@ public class FilmActor {
         return this.filmId;
     }
 
-    public void setFilmId(final int filmId) {
+    public void setFilmId( int filmId) {
         this.filmId = filmId;
     }
 
@@ -41,7 +41,7 @@ public class FilmActor {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(final Timestamp lastUpdate) {
+    public void setLastUpdate( Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 }

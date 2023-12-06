@@ -19,6 +19,6 @@ stop_processes_using_ports() {
   done
 }
 
-PORTS_TO_STOP=(8081)
+PORTS_TO_STOP=(8082 8081 8082)
 
 stop_processes_using_ports || true

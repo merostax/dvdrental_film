@@ -29,7 +29,7 @@ public class Category {
         return this.categoryId;
     }
 
-    public void setCategoryId(final int categoryId) {
+    public void setCategoryId( int categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -37,7 +37,7 @@ public class Category {
         return this.name;
     }
 
-    public void setName(final String name) {
+    public void setName( String name) {
         this.name = name;
     }
 
@@ -45,7 +45,7 @@ public class Category {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(final Timestamp lastUpdate) {
+    public void setLastUpdate( Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -53,7 +53,7 @@ public class Category {
         return this.films;
     }
 
-    public void setFilms(final Set<Film> films) {
+    public void setFilms( Set<Film> films) {
         this.films = films;
     }
 }

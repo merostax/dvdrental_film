@@ -116,7 +116,7 @@ public class Film implements Serializable {
         return this.filmId;
     }
 
-    public void setFilmId(final int filmId) {
+    public void setFilmId( int filmId) {
         this.filmId = filmId;
     }
 
@@ -124,7 +124,7 @@ public class Film implements Serializable {
         return this.title;
     }
 
-    public void setTitle(final String title) {
+    public void setTitle( String title) {
         this.title = title;
     }
 
@@ -132,7 +132,7 @@ public class Film implements Serializable {
         return this.description;
     }
 
-    public void setDescription(final String description) {
+    public void setDescription( String description) {
         this.description = description;
     }
 
@@ -140,7 +140,7 @@ public class Film implements Serializable {
         return this.releaseYear;
     }
 
-    public void setReleaseYear(final Short releaseYear) {
+    public void setReleaseYear( Short releaseYear) {
         this.releaseYear = releaseYear;
     }
 
@@ -148,7 +148,7 @@ public class Film implements Serializable {
         return this.language;
     }
 
-    public void setLanguage(final Language language) {
+    public void setLanguage( Language language) {
         this.language = language;
     }
 
@@ -156,7 +156,7 @@ public class Film implements Serializable {
         return this.rentalDuration;
     }
 
-    public void setRentalDuration(final short rentalDuration) {
+    public void setRentalDuration( short rentalDuration) {
         this.rentalDuration = rentalDuration;
     }
 
@@ -164,7 +164,7 @@ public class Film implements Serializable {
         return this.rentalRate;
     }
 
-    public void setRentalRate(final BigDecimal rentalRate) {
+    public void setRentalRate( BigDecimal rentalRate) {
         this.rentalRate = rentalRate;
     }
 
@@ -172,7 +172,7 @@ public class Film implements Serializable {
         return this.length;
     }
 
-    public void setLength(final Short length) {
+    public void setLength( Short length) {
         this.length = length;
     }
 
@@ -180,7 +180,7 @@ public class Film implements Serializable {
         return this.replacementCost;
     }
 
-    public void setReplacementCost(final BigDecimal replacementCost) {
+    public void setReplacementCost( BigDecimal replacementCost) {
         this.replacementCost = replacementCost;
     }
 
@@ -188,7 +188,7 @@ public class Film implements Serializable {
         return this.rating;
     }
 
-    public void setRating(final String rating) {
+    public void setRating( String rating) {
         this.rating = rating;
     }
 
@@ -212,7 +212,7 @@ public class Film implements Serializable {
         return this.categories;
     }
 
-    public void setCategories(final List<Category> categories) {
+    public void setCategories( List<Category> categories) {
         this.categories = categories;
     }
 
