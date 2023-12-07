@@ -29,6 +29,3 @@ Wenn es nach einer bestimmten Zeit nicht zum nächsten Befehl übergeht, liegt d
 Die URI für den Microservice, zum Beispiel für Filme, sollte bereitgestellt werden. Ebenso sollten Customer- und Store-URIs mitgeliefert werden, falls sie benötigt werden. Der Grund dafür liegt darin, dass in der Anwendung diese URIs je nach Anforderung abgefragt werden, und in diesem Fall ziehe ich es vor, direkt die URI des Films aus dem Filmprojekt zu verwenden.
 Es ist möglich, die @context-URI zu nutzen, aber das würde für mich viele Änderungen erfordern. Daher empfehle ich, es so zu belassen.
 
-## quarkus
-falls eine port anderung zb customer lauf auf port 8084, dann bitte in Hrefs die port andern,
-mann kan -Dcustomer.service.uris=localhost:8081... umzsetzten, ist aber beim nativ image ,irgendwie nicht erfolgreich gewesen
