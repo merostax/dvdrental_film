@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import dtos.FilmActorDto;
-import dtos.FilmDTO;
 import entity.Film;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -28,6 +27,11 @@ public class ActorService {
     private ActorRepository actorRepository;
     @Context
     UriInfo uriInfo ;
+
+    @Inject
+    private Hrefs hrefs;
+     @Inject DTOEntityUtil DTOEntityUtil;
+
     @GET
     public Response getActors(@Valid @QueryParam("page") @DefaultValue("1") @Min(1) int page) {
         int pageSize = 10;
@@ -76,7 +80,7 @@ public class ActorService {
     }
     private Map<String, String> getFilmsHref(Actor actor) {
         Map<String, String> filmHref = new HashMap<>();
-        filmHref.put("href", Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref() + "actors/" + actor.getActorId() + "/films":"");
+        filmHref.put("href", hrefs.getFilmHref()!=null?hrefs.getFilmHref() + "actors/" + actor.getActorId() + "/films":"");
         return filmHref;
     }
 

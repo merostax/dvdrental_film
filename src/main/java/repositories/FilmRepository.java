@@ -21,7 +21,7 @@ public class FilmRepository {
 
     @PersistenceContext
     EntityManager em;
-
+    @Inject DTOEntityUtil DTOEntityUtil;
     @Inject
     private LanguageRepository languageRepository;
 

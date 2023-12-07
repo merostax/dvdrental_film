@@ -23,4 +23,6 @@ DB_CONTAINER_ID=$(podman run -d --pod  $PODNAME  $FILM_CONTAINER_NAME_POSTGRES)
 
 mvn clean package -Pnative -f pom-quarkus.xml
  sleep 5
-./target/starter-1.0-runner & disown
+ ./target/starter-1.0-runner -Dstore.service.uri=http://localhost:8082/ -Dcustomer.service.uri=http://localhost:8083/ -Dfilm.service.uri=http://localhost:8081/
+
+

@@ -1,7 +1,6 @@
 package services;
 
 import clienTargetRepository.StoreServiceClientProvider;
-import dtos.ActorDTO;
 import dtos.ActorFilmDto;
 import dtos.FilmDTO;
 import entity.Actor;
@@ -21,11 +20,8 @@ import repositories.FilmRepository;
 import util.DTOEntityUtil;
 import util.Hrefs;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Path("films")
@@ -41,7 +37,9 @@ public class FilmService {
     private ActorRepository actorRepository;
     @Inject
     private CategoryRepository categoryRepository;
-
+    @Inject
+    private Hrefs hrefs;
+    @Inject DTOEntityUtil DTOEntityUtil;
     @GET
     public Response getFilms(@Valid @QueryParam("page") @DefaultValue("1") @Min(1) int page) {
         int pageSize = 20;
@@ -58,7 +56,7 @@ public class FilmService {
         if (createdFilmOptional.isPresent()) {
             return Response.status(Response.Status.CREATED)
                     .entity("Film was created")
-                    .header("Location", Hrefs.FILM.getHref() != null ? Hrefs.FILM.getHref() + "films/" + createdFilmOptional.get().getFilmId() : "")
+                    .header("Location", hrefs.getFilmHref() != null ? hrefs.getFilmHref() + "films/" + createdFilmOptional.get().getFilmId() : "")
                     .build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -104,7 +102,7 @@ public class FilmService {
         filmRepository.updateFilm(film);
 
         return Response.status(Response.Status.CREATED)
-                .header("Location", Hrefs.FILM.getHref()!= null ? Hrefs.FILM.getHref()+ "films/" + filmId + "/actors" :"")
+                .header("Location", hrefs.getFilmHref()!= null ? hrefs.getFilmHref()+ "films/" + filmId + "/actors" :"")
                 .build();
     }
     @DELETE
@@ -228,7 +226,7 @@ public class FilmService {
         film.addCategory(category);
         filmRepository.updateFilm(film);
 
-        String location = Hrefs.FILM.getHref()!=null?Hrefs.FILM.getHref()+ "films/" + filmId + "/categories":"";
+        String location = hrefs.getFilmHref()!=null?hrefs.getFilmHref()+ "films/" + filmId + "/categories":"";
         return Response.status(Response.Status.CREATED)
                 .header("Location", location)
                 .entity("Category added to film.")
