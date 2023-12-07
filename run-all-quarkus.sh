@@ -1,15 +1,17 @@
 #!/bin/bash
 ##README lesen
-run_quarkus() {
-  chmod +x run-quarkus.sh
-  ./run-quarkus.sh
-}
+chmod +x run-quarkus.sh
+./run-quarkus.sh
 
-run_quarkus
+sleep 10
 
-(cd .. && cd dvdrental-store && run_quarkus)
+cd .. && cd dvdrental-store
+chmod +x run-quarkus.sh
+./run-quarkus.sh
 
-(cd .. && cd dvdrental-customer && run_quarkus)
+sleep 10
 
-## falls error mit jvm thread emfehlbar das zu nutzen
-## MAVEN_OPTS="-Xmx512m -Xms256m"
+cd .. && cd dvdrental-customer
+chmod +x run-quarkus.sh
+./run-quarkus.sh
+
