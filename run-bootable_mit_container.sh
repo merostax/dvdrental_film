@@ -28,4 +28,4 @@ wait_for_postgres
 
 # Build and run the main container
 podman build -t $FILM_CONTAINER_NAME -f $DOCKERFILE_PATH .
-podman run -d --pod $PODNAME -e POSTGRESQL_DB=dvdrentalfilm -e POSTGRESQL_USER=postgres -e POSTGRESQL_PASSWORD=trust $FILM_CONTAINER_NAME
+podman run -d --pod $PODNAME -e POSTGRESQL_SERVICE_HOST=localhost -e POSTGRESQL_SERVICE_PORT=54321 -e POSTGRESQL_DB=dvdrentalfilm -e POSTGRESQL_USER=postgres -e POSTGRESQL_PASSWORD=trust $FILM_CONTAINER_NAME
