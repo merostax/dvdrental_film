@@ -29,5 +29,5 @@ Wenn es nach einer bestimmten Zeit nicht zum nächsten Befehl übergeht, liegt d
 Die URI für den Microservice, zum Beispiel für Filme, sollte bereitgestellt werden. Ebenso sollten Customer- und Store-URIs mitgeliefert werden, falls sie benötigt werden. Der Grund dafür liegt darin, dass in der Anwendung diese URIs je nach Anforderung abgefragt werden, und in diesem Fall ziehe ich es vor, direkt die URI des Films aus dem Filmprojekt zu verwenden.
 Es ist möglich, die @context-URI zu nutzen, aber das würde für mich viele Änderungen erfordern. Daher empfehle ich, es so zu belassen.
 
-## QUarkus
+## Quarkus
 falls "disown" nicht zu den nachste uberspringt bitte der letzte quarkus.sh manual ausführen.
