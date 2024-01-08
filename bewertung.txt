@@ -1,0 +1,6 @@
+gefällt mir alles sehr gut
+außer: Verändert produktive DB, ganz schlecht (-10%)
+(mache Skripte executable, andere nicht)
+(sehr langsam)
+
+90% / 30P
