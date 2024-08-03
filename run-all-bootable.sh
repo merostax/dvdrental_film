@@ -3,12 +3,12 @@
 chmod +x run-bootable_mit_container.sh
 ./run-bootable_mit_container.sh
 
-cd .. && cd dvdrental-store
+cd .. && cd dvdrental_store
 chmod +x run-bootable_mit_container.sh
 ./run-bootable_mit_container.sh
 
 
-cd .. && cd dvdrental-customer
+cd .. && cd dvdrental-customer-
 chmod +x run-bootable_mit_container.sh
 ./run-bootable_mit_container.sh
 

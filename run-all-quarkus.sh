@@ -5,13 +5,13 @@ chmod +x run-quarkus.sh
 
 sleep 10
 
-cd .. && cd dvdrental-store
+cd .. && cd dvdrental_store
 chmod +x run-quarkus.sh
 ./run-quarkus.sh
 
 sleep 10
 
-cd .. && cd dvdrental-customer
+cd .. && cd dvdrental-customer-
 chmod +x run-quarkus.sh
 ./run-quarkus.sh
 
